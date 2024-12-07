@@ -1,103 +1,136 @@
 import Image from "next/image";
+import { LuCalendarDays } from "react-icons/lu";
+import { PiLinkSimple } from "react-icons/pi";
+import { HiMiniBars2 } from "react-icons/hi2";
+import { HiMiniBars3BottomLeft } from "react-icons/hi2";
+import { MdOutlineRadioButtonChecked } from "react-icons/md";
+import { RxDragHandleDots2 } from "react-icons/rx";
+import { MdKeyboardArrowDown } from "react-icons/md";
+import { FiArrowUpRight } from "react-icons/fi";
+import { FiPlus } from "react-icons/fi";
+import { LuNotebookPen } from "react-icons/lu";
+import { MdCheck } from "react-icons/md";
+
 
 export default function Home() {
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
 
-      <h2>Hello world!</h2>
-      {/* <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+    <div className="m-auto flex flex-col justify-between h-screen w-5/12 border-2 border-[#E1E4E8]">
+      <div className="flex border-b-2 border-[#E1E4E8] h-16 w-full justify-around items-center">
+        <p className="text-[#899097]">Untitled Form</p>
+        <button className="text-[#899097] border-2 py-1 px-4 border-[#E1E4E8] rounded-xl flex items-center gap-1">
+          <span>Preview</span>
+          <FiArrowUpRight />
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+        </button>
+      </div>
+      <main className="p-4">
+        <div className=" border-2 border-[#E1E4E8] w-full rounded-2xl p-3">
+          <div className="flex justify-between items-center">
+            <p className="font-semibold text-base">Explain in a single sentence, why you are the best fir for this role?</p>
+            <div className="flex gap-1">
+              <HiMiniBars2 />
+              <MdKeyboardArrowDown />
+              <RxDragHandleDots2 />
+            </div>
+          </div>
+          <input type="text"
+            disabled
+            className="w-full border-2 rounded-md border-[#E1E4E8] mt-2 h-8" />
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer> */}
-    </div>
+        <div className=" border-2 border-[#E1E4E8] w-full rounded-2xl p-3 mt-4">
+          <div className="flex justify-between items-center">
+            <div>
+              <p className="font-semibold text-base">What is your preferred frontend framework?</p>
+              <p className=" text-sm">Which frontend framework do you prefer working with?</p>
+            </div>
+
+            <div className="flex gap-1">
+              <HiMiniBars3BottomLeft />
+              <MdKeyboardArrowDown />
+              <RxDragHandleDots2 />
+            </div>
+          </div>
+          <input type="text"
+            disabled
+            className="w-full border-2 rounded-md border-[#E1E4E8] mt-2 h-20" />
+        </div>
+        <div className=" border-2 border-[#E1E4E8] w-full rounded-2xl p-3 mt-4">
+          <div className="flex justify-between items-center">
+            <div>
+              <p className="font-semibold text-base">What is your preferred frontend framework?</p>
+              <p className=" text-sm">Which frontend framework do you prefer working with?</p>
+            </div>
+
+            <div className="flex gap-1">
+              <MdOutlineRadioButtonChecked />
+              <MdKeyboardArrowDown />
+              <RxDragHandleDots2 />
+            </div>
+          </div>
+          <div className="mt-2 text-sm ">
+            <label className="flex items-center gap-2 ">
+              <input
+                type="radio"
+                name="frontend-framework"
+                disabled
+                className="h-5 w-5 border-2 rounded-md border-[#E1E4E8]"
+              />
+              React
+            </label>
+
+            <label className="flex items-center gap-2 mt-1">
+              <input
+                type="radio"
+                name="frontend-framework"
+                disabled
+                className="h-5 w-5 border-2 rounded-md border-[#E1E4E8]"
+              />
+              Angular
+            </label>
+          </div>
+
+        </div>
+
+        <div className=" border-2 border-[#E1E4E8] w-full rounded-2xl p-3 mt-4">
+          <div className="flex justify-between items-center">
+            <p className="font-semibold text-base">What would be your tentative joining date?</p>
+            <div className="flex gap-1">
+              <HiMiniBars2 />
+              <MdKeyboardArrowDown />
+              <RxDragHandleDots2 />
+            </div>
+          </div>
+          <input type="date"
+            // disabled
+            className="w-full border-2 rounded-md border-[#E1E4E8] mt-2 h-8" />
+        </div>
+        <div className=" border-2 border-[#E1E4E8] w-full rounded-2xl p-3 mt-4">
+          <div className="flex justify-between items-center">
+            <p className="font-semibold text-base">What would be your tentative joining date?</p>
+            <div className="flex gap-1">
+              <PiLinkSimple />
+              <MdKeyboardArrowDown />
+              <RxDragHandleDots2 />
+            </div>
+          </div>
+          <input type="text"
+            className="w-full border-2 rounded-md border-[#E1E4E8] mt-2 h-8" />
+        </div>
+      </main >
+      <footer className="flex border-t-2 border-[#E1E4E8] h-16 w-full justify-around gap-4 items-center">
+        <button className="text-[#899097] border-2 py-1 px-4 border-[#E1E4E8] rounded-xl flex items-center gap-1">
+          <LuNotebookPen />
+
+          <span>Save as Draft</span>
+        </button>
+        <button className="text-[#ffffff] border-2 border-[#8cc7a7] py-1 px-4  rounded-xl bg-[#8cc7a7] flex items-center justify-around gap-1">
+          <MdCheck />
+          <span>Publish form</span>
+
+        </button>
+      </footer>
+    </div >
+    // </div >
   );
 }
