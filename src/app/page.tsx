@@ -2,19 +2,12 @@
 
 import React, { useEffect, useState } from 'react'
 import { v4 as uuidv4 } from 'uuid';
-import { LuCalendarDays } from "react-icons/lu";
-import { PiLinkSimple } from "react-icons/pi";
-import { HiMiniBars2 } from "react-icons/hi2";
-import { HiMiniBars3BottomLeft } from "react-icons/hi2";
-import { MdOutlineRadioButtonChecked } from "react-icons/md";
-import { RxDragHandleDots2 } from "react-icons/rx";
-import { MdKeyboardArrowDown } from "react-icons/md";
-import { FiPlus } from "react-icons/fi";
 import { useFormContext } from './context/FormContext';
 import QuestionTypeDropdown from './components/QuestionTypeDropdown';
 import { useRouter } from 'next/navigation';
 import Header from './components/Header';
 import Footer from './components/Footer';
+import MainQuestions from './components/MainQuestions';
 
 type Question = {
   id: string;
@@ -89,7 +82,7 @@ export default function Home() {
       <div className="m-auto flex flex-col justify-between h-screen w-5/12 border-2 border-gray-medium">
         <Header formName={formName} disabled={disabled} handlePreviewClick={handlePreviewClick} setFormName={setFormName} />
 
-        <main className="flex flex-col items-center p-4 flex-grow">
+        {/* <main className="flex flex-col items-center p-4 flex-grow">
           {questionsList.map((eachQuestion, index) => (
             <div
               id={eachQuestion.id}
@@ -264,7 +257,11 @@ export default function Home() {
             <FiPlus />
             <span>Add Question</span>
           </button>
-        </main>
+        </main> */}
+        <MainQuestions
+          questionsList={questionsList} handleUpdateInputValue={handleUpdateInputValue}
+          openEditQuestionModal={openEditQuestionModal} errors={errors} toggleAddQuestionModal={toggleAddQuestionModal}
+        />
 
 
         <Footer disabled={disabled} />
