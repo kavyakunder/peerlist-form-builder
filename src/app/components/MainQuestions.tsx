@@ -13,7 +13,7 @@ import { FiPlus } from "react-icons/fi";
 
 type Question = {
     id: string;
-    type: string;
+    type: keyof typeof questionTypeConfig;
     value: string;
 };
 
@@ -27,182 +27,128 @@ interface MainQuestionsProps {
 }
 
 
+
+const questionTypeConfig = {
+    "short-answer": {
+        placeholder: "Short answer question",
+        icon: <>
+            <HiMiniBars2 />
+            <MdKeyboardArrowDown /></>,
+        inputType: "text",
+        renderInput: () => (
+            <input
+                type="text"
+                disabled
+                className="w-full border-2 rounded-md border-gray-medium mt-2 h-8 cursor-pointer"
+            />
+        )
+    },
+    "long-answer": {
+        icon: <><HiMiniBars3BottomLeft /><MdKeyboardArrowDown /></>,
+        placeholder: "Long answer question",
+        inputType: "text",
+        renderInput: () => (
+            <textarea
+                disabled
+                className="w-full border-2 rounded-md border-gray-medium mt-2 h-20 cursor-pointer"
+            />
+        )
+    },
+    "single-select": {
+        icon: <><MdOutlineRadioButtonChecked /><MdKeyboardArrowDown /></>,
+        placeholder: "Long answer question",
+        inputType: "text",
+        renderInput: (index: number) => (
+            <div className="mt-2 text-sm">
+                <label className="flex items-center gap-2">
+                    <input
+                        type="radio"
+                        name={`question-${index}`}
+                        disabled
+                        className="h-5 w-5 border-2 rounded-md border-gray-medium border-rad"
+                    />
+                    <input type="text" className='border-2 border-gray-medium flex-grow rounded-md' />
+                </label>
+                <label className="flex items-center gap-2 mt-1">
+                    <input
+                        type="radio"
+                        name={`question-${index}`}
+                        disabled
+                        className="h-5 w-5 border-2 rounded-md border-gray-medium"
+                    />
+                    <input type="text" className='border-2 border-gray-medium flex-grow rounded-md' />
+
+                </label>
+            </div>
+        )
+    },
+    "url": {
+        icon: <><PiLinkSimple /><MdKeyboardArrowDown /></>,
+        placeholder: "URL Question",
+        inputType: "text",
+        renderInput: () => (
+            <input
+                type="text"
+                disabled
+                className="w-full border-2 rounded-md border-gray-medium mt-2 h-8 cursor-pointer"
+            />
+        )
+    },
+    "date": {
+        icon: <><LuCalendarDays /><MdKeyboardArrowDown /></>,
+        placeholder: "Date Question",
+        inputType: "text",
+        renderInput: () => (
+            <input
+                type="date"
+                disabled
+                className="w-full border-2 rounded-md border-gray-medium mt-2 h-8 cursor-pointer text-sm"
+            />
+        )
+    }
+}
+
 const MainQuestions = ({ questionsList, handleUpdateInputValue,
     openEditQuestionModal, errors, toggleAddQuestionModal
 }: MainQuestionsProps) => {
 
     return (
-        <main className="flex flex-col items-center p-4 flex-grow">
-            {questionsList.map((eachQuestion, index) => (
-                <div
-                    id={eachQuestion.id}
-                    key={index} className="border-2 border-gray-medium w-full rounded-2xl p-3 mt-4 hover:bg-[#fafbfc] cursor-pointer">
-
-                    {eachQuestion.type === "short-answer" && (
+        <main className="flex flex-col items-center p-4 flex-grow overflow-y-auto">
+            {questionsList.map((eachQuestion, index) => {
+                const config = questionTypeConfig[eachQuestion.type];
+                if (!config) return null;
+                return (
+                    <div
+                        id={eachQuestion.id}
+                        key={index} className="border-2 border-gray-medium w-full rounded-2xl p-3 mt-4 hover:bg-[#fafbfc] cursor-pointer">
                         <>
                             <div className="flex justify-between items-center hover:bg-[#fafbfc]">
                                 <input
-                                    type="text"
-                                    placeholder="Short answer question"
-                                    className={`text-sm font-semibold leading-5 w-full hover:bg-[#fafbfc] ${errors && eachQuestion.value.length === 0 ? 'placeholder-red-500' : 'placeholder-gray-400'}`}
+                                    type={config.inputType}
+                                    placeholder={config.placeholder}
                                     value={eachQuestion.value}
+                                    className={`text-sm font-semibold leading-5 w-full hover:bg-[#fafbfc] ${errors && eachQuestion.value.length === 0 ? 'placeholder-red-500' : 'placeholder-gray-400'}`}
                                     onChange={(e) => handleUpdateInputValue(eachQuestion.id, e.target.value)}
                                 />
                                 <div className="flex gap-1">
                                     <div className='flex'
-                                        onClick={() => openEditQuestionModal("short-answer", eachQuestion.id)}
+                                        onClick={() => openEditQuestionModal(eachQuestion.type, eachQuestion.id)}
                                     >
-                                        <HiMiniBars2 />
-                                        <MdKeyboardArrowDown />
+                                        {config.icon}
                                     </div>
                                     <RxDragHandleDots2 />
                                 </div>
+
                             </div>
-                            <input
-                                type="text"
-                                disabled
-                                className="w-full border-2 rounded-md border-gray-medium mt-2 h-8"
-                            />
+                            {config.renderInput && config.renderInput(index)}
                         </>
-                    )}
-                    {eachQuestion.type === "long-answer" && (
-                        <>
-                            <div className="flex justify-between items-center">
-                                <input
-                                    type="text"
-                                    placeholder="Long answer question"
-                                    className={`text-sm font-semibold leading-5 w-full hover:bg-[#fafbfc] ${errors && eachQuestion.value.length === 0 ? 'placeholder-red-500' : 'placeholder-gray-400'}`}
-
-                                    // className="font-semibold w-full text-base hover:bg-[#fafbfc]"
-                                    onChange={(e) => handleUpdateInputValue(eachQuestion.id, e.target.value)}
-                                    value={eachQuestion.value}
-                                />
-                                <div className="flex gap-1">
-                                    <div
-                                        onClick={() => openEditQuestionModal("long-answer", eachQuestion.id)}
-                                        className='flex'>
-                                        <HiMiniBars3BottomLeft />
-                                        <MdKeyboardArrowDown />
-                                    </div>
-                                    <RxDragHandleDots2 />
-                                </div>
-                            </div>
-                            <textarea
-                                disabled
-                                className="w-full border-2 rounded-md border-gray-medium mt-2 h-20"
-                            />
-                        </>
-                    )}
-                    {eachQuestion.type === "single-select" && (
-                        <>
-                            <div className="flex justify-between items-center">
-                                <input
-                                    type="text"
-                                    placeholder="Single Select Question"
-                                    className={`text-sm font-semibold leading-5 w-full hover:bg-[#fafbfc] ${errors && eachQuestion.value.length === 0 ? 'placeholder-red-500' : 'placeholder-gray-400'}`}
-
-                                    // className="font-semibold w-full text-base hover:bg-[#fafbfc]"
-                                    onChange={(e) => handleUpdateInputValue(eachQuestion.id, e.target.value)}
-                                    value={eachQuestion.value}
-                                />
-                                <div className="flex gap-1">
-                                    <div
-                                        onClick={() => openEditQuestionModal("single-select", eachQuestion.id)}
-
-                                        className='flex'>
-                                        <MdOutlineRadioButtonChecked />
-                                        <MdKeyboardArrowDown />
-                                    </div>
-                                    <RxDragHandleDots2 />
-                                </div>
-                            </div>
-                            <div className="mt-2 text-sm">
-                                <label className="flex items-center gap-2">
-                                    <input
-                                        type="radio"
-                                        name={`question-${index}`}
-                                        disabled
-                                        className="h-5 w-5 border-2 rounded-md border-gray-medium border-rad"
-                                    />
-                                    <input type="text" className='border-2 border-gray-medium flex-grow rounded-md' />
-                                </label>
-                                <label className="flex items-center gap-2 mt-1">
-                                    <input
-                                        type="radio"
-                                        name={`question-${index}`}
-                                        disabled
-                                        className="h-5 w-5 border-2 rounded-md border-gray-medium"
-                                    />
-                                    <input type="text" className='border-2 border-gray-medium flex-grow rounded-md' />
-
-                                </label>
-                            </div>
-                        </>
-                    )}
-                    {eachQuestion.type === "url" && (
-                        <>
-                            <div className="flex justify-between items-center">
-                                <input
-                                    type="text"
-                                    placeholder="URL Question"
-                                    className={`text-sm font-semibold leading-5 w-full hover:bg-[#fafbfc] ${errors && eachQuestion.value.length === 0 ? 'placeholder-red-500' : 'placeholder-gray-400'}`}
-
-                                    // className="font-semibold w-full text-base hover:bg-[#fafbfc]"
-                                    onChange={(e) => handleUpdateInputValue(eachQuestion.id, e.target.value)}
-                                    value={eachQuestion.value}
-                                />
-                                <div className="flex gap-1">
-                                    <div
-                                        onClick={() => openEditQuestionModal("url", eachQuestion.id)}
-                                        className='flex'>
-                                        <PiLinkSimple />
-                                        <MdKeyboardArrowDown />
-                                    </div>
-                                    <RxDragHandleDots2 />
-                                </div>
-                            </div>
-                            <input
-                                type="text"
-                                disabled
-                                className="w-full border-2 rounded-md border-gray-medium mt-2 h-8 cursor-pointer"
-                            />
-                        </>
-                    )}
-                    {eachQuestion.type === "date" && (
-                        <>
-                            <div className="flex justify-between items-center">
-                                <input
-                                    type="text"
-                                    placeholder="Date Question"
-                                    className={`text-sm font-semibold leading-5 w-full hover:bg-[#fafbfc] ${errors && eachQuestion.value.length === 0 ? 'placeholder-red-500' : 'placeholder-gray-400'}`}
-
-                                    // className="font-semibold w-full text-base hover:bg-[#fafbfc]"
-                                    onChange={(e) => handleUpdateInputValue(eachQuestion.id, e.target.value)}
-                                    value={eachQuestion.value}
-                                />
-                                <div className="flex gap-1">
-                                    <div
-                                        onClick={() => openEditQuestionModal("date", eachQuestion.id)}
-                                        className='flex'>
-                                        <LuCalendarDays />
-                                        <MdKeyboardArrowDown />
-                                    </div>
-                                    <RxDragHandleDots2 />
-                                </div>
-                            </div>
-                            <input
-                                type="date"
-                                disabled
-                                className="w-full border-2 rounded-md border-gray-medium mt-2 h-8"
-                            />
-                        </>
-                    )}
-                </div>
-            ))}
+                    </div>
+                )
+            })}
 
             <button
                 onClick={toggleAddQuestionModal}
-                className="mt-6 text-[#000000] border-2 py-1 px-4 border-gray-medium rounded-xl font-semibold flex items-center"
+                className="mt-6 text-[#000000] text-sm border-2 py-1 px-4 border-gray-medium rounded-xl font-semibold flex items-center"
             >
                 <FiPlus />
                 <span>Add Question</span>

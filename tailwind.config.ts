@@ -11,8 +11,19 @@ export default {
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
+        green: {
+          "medium": "#00AA45",
+          "dark": "#1e874b",
+          "light": "#8cc7a7",
+        },
+        gray: {
+          "medium": "#E1E4E8",
+        },
       },
+
     },
   },
   plugins: [],
 } satisfies Config;
+
+
