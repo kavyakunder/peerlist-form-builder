@@ -10,11 +10,11 @@ interface QuestionTypeDropdownProps {
 }
 
 const questionTypes = [
-    { type: 'short-answer', label: 'Short Answer', icon: <HiMiniBars2 size={20} /> },
-    { type: 'long-answer', label: 'Long Answer', icon: <HiMiniBars3BottomLeft size={20} /> },
-    { type: 'single-select', label: 'Single Select', icon: <MdOutlineRadioButtonChecked size={20} /> },
-    { type: 'url', label: 'URL', icon: <PiLinkSimple size={20} /> },
-    { type: 'date', label: 'Date', icon: <LuCalendarDays size={20} /> },
+    { id: 1, type: 'short-answer', label: 'Short Answer', icon: <HiMiniBars2 size={20} /> },
+    { id: 2, type: 'long-answer', label: 'Long Answer', icon: <HiMiniBars3BottomLeft size={20} /> },
+    { id: 3, type: 'single-select', label: 'Single Select', icon: <MdOutlineRadioButtonChecked size={20} /> },
+    { id: 4, type: 'url', label: 'URL', icon: <PiLinkSimple size={20} /> },
+    { id: 5, type: 'date', label: 'Date', icon: <LuCalendarDays size={20} /> },
 ];
 
 
@@ -25,8 +25,9 @@ const QuestionTypeDropdown = ({ handleUpdateQuestionType }: QuestionTypeDropdown
                 <h2 className="text-xs font-semibold mb-4 bg-[#fafbfc] text-[#6A737D]">INPUT TYPES</h2>
                 <div
                     className='flex flex-col gap-2 text-sm'>
-                    {questionTypes.map(({ type, label, icon }) =>
+                    {questionTypes.map(({ type, label, icon, id }) =>
                         <div
+                            key={id}
                             onClick={() => handleUpdateQuestionType(type)}
                             className='flex items-center gap-2 hover:cursor-pointer'>
                             {icon}
