@@ -15,14 +15,21 @@ import { FiPlus } from "react-icons/fi";
 import { LuNotebookPen } from "react-icons/lu";
 import { MdCheck } from "react-icons/md";
 import Link from 'next/link'
-import { error } from 'console';
+import { useFormContext } from './context/FormContext';
+
+type Question = {
+  id: string;
+  type: string;
+  value: string;
+};
 
 export default function Home() {
+
+  const { formName, setFormName, questionsList, setQuestionsList } = useFormContext();
+
   const [modalOpen, setModalOpen] = useState(false);
-  const [questionsList, setQuestionList] = useState<{ id: string, type: string, value: string }[]>([]);
   const [selectedQuestionId, setSelectedQuestionId] = useState<string | null>(null);
   const [disabled, setDisabled] = useState(true);
-  const [formName, setFormName] = useState("");
 
   const toggleAddQuestionModal = () => {
     setModalOpen(!modalOpen);
@@ -36,15 +43,15 @@ export default function Home() {
 
   const handleUpdateQuestionType = (type: string) => {
     if (selectedQuestionId) {
-      setQuestionList((prev) =>
-        prev.map((eachQuestion) => eachQuestion.id === selectedQuestionId ?
+      setQuestionsList((prev: Question[]) =>
+        prev.map((eachQuestion: Question) => eachQuestion.id === selectedQuestionId ?
           { ...eachQuestion, type }
           : eachQuestion)
       )
 
     } else {
-      const newQuestion = { id: uuidv4(), type, value: "" }
-      setQuestionList((prev) => [...prev, newQuestion]);
+      const newQuestion: Question = { id: uuidv4(), type, value: "" }
+      setQuestionsList((prev: Question[]) => [...prev, newQuestion]);
 
     }
     setModalOpen(false)
@@ -53,7 +60,7 @@ export default function Home() {
   }
 
   const handleUpdateInputValue = (id: string, newValue: string) => {
-    setQuestionList((prev) => prev.map((eachQuestion) => eachQuestion.id === id ? { ...eachQuestion, value: newValue } : eachQuestion))
+    setQuestionsList((prev: Question[]) => prev.map((eachQuestion: Question) => eachQuestion.id === id ? { ...eachQuestion, value: newValue } : eachQuestion))
   }
 
   useEffect(() => {
@@ -62,6 +69,8 @@ export default function Home() {
     }
   }, [questionsList])
 
+
+  console.log("hello world!")
   return (
     <>
       <div className="m-auto flex flex-col justify-between h-screen w-5/12 border-2 border-[#E1E4E8]">
@@ -206,7 +215,8 @@ export default function Home() {
                   </div>
                   <input
                     type="text"
-                    className="w-full border-2 rounded-md border-[#E1E4E8] mt-2 h-8"
+                    disabled
+                    className="w-full border-2 rounded-md border-[#E1E4E8] mt-2 h-8 cursor-pointer"
                   />
                 </>
               )}
@@ -232,6 +242,7 @@ export default function Home() {
                   </div>
                   <input
                     type="date"
+                    disabled
                     className="w-full border-2 rounded-md border-[#E1E4E8] mt-2 h-8"
                   />
                 </>
