@@ -11,7 +11,7 @@ type FormContextType = {
     formName: string;
     setFormName: (name: string) => void;
     questionsList: Question[];
-    setQuestionsList: (questions: Question[]) => void;
+    setQuestionsList: (question: any) => void;
 };
 
 const FormContext = createContext<FormContextType | undefined>(undefined);

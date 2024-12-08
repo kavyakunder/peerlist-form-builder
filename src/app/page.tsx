@@ -2,7 +2,6 @@
 
 import React, { useEffect, useState } from 'react'
 import { v4 as uuidv4 } from 'uuid';
-import Image from "next/image";
 import { LuCalendarDays } from "react-icons/lu";
 import { PiLinkSimple } from "react-icons/pi";
 import { HiMiniBars2 } from "react-icons/hi2";
@@ -10,12 +9,12 @@ import { HiMiniBars3BottomLeft } from "react-icons/hi2";
 import { MdOutlineRadioButtonChecked } from "react-icons/md";
 import { RxDragHandleDots2 } from "react-icons/rx";
 import { MdKeyboardArrowDown } from "react-icons/md";
-import { FiArrowUpRight } from "react-icons/fi";
 import { FiPlus } from "react-icons/fi";
-import { LuNotebookPen } from "react-icons/lu";
-import { MdCheck } from "react-icons/md";
-import Link from 'next/link'
 import { useFormContext } from './context/FormContext';
+import QuestionTypeDropdown from './components/QuestionTypeDropdown';
+import { useRouter } from 'next/navigation';
+import Header from './components/Header';
+import Footer from './components/Footer';
 
 type Question = {
   id: string;
@@ -26,10 +25,11 @@ type Question = {
 export default function Home() {
 
   const { formName, setFormName, questionsList, setQuestionsList } = useFormContext();
-
   const [modalOpen, setModalOpen] = useState(false);
   const [selectedQuestionId, setSelectedQuestionId] = useState<string | null>(null);
   const [disabled, setDisabled] = useState(true);
+  const [errors, setErrors] = useState(false);
+  const router = useRouter();
 
   const toggleAddQuestionModal = () => {
     setModalOpen(!modalOpen);
@@ -70,40 +70,38 @@ export default function Home() {
   }, [questionsList])
 
 
-  console.log("hello world!")
+  const handlePreviewClick = () => {
+    const emptyInputQuestion = questionsList.filter((eachQuestion) => eachQuestion.value.length === 0)
+    if (emptyInputQuestion.length > 0) {
+      setErrors(true)
+    }
+    else {
+      setErrors(false)
+      router.push("/preview")
+
+    }
+  }
+
+
   return (
     <>
-      <div className="m-auto flex flex-col justify-between h-screen w-5/12 border-2 border-[#E1E4E8]">
-        <div className="flex border-b-2 border-[#E1E4E8] h-16 w-full justify-between items-center px-4">
-          <input
-            type="text" placeholder='Untitled Form'
-            value={formName}
-            onChange={(e) => setFormName(e.target.value)}
-          />
-          <Link href="/preview">
-            <button
-              disabled={disabled}
-              className={`border-2 py-1 px-4 border-[#E1E4E8] rounded-xl flex items-center gap-1 ${disabled ? "text-[#899097] cursor-not-allowed" : "text-black"
-                }`}>
-              <span>Preview</span>
-              <FiArrowUpRight />
-            </button>
-          </Link>
-        </div>
+
+      <div className="m-auto flex flex-col justify-between h-screen w-5/12 border-2 border-gray-medium">
+        <Header formName={formName} disabled={disabled} handlePreviewClick={handlePreviewClick} setFormName={setFormName} />
 
         <main className="flex flex-col items-center p-4 flex-grow">
           {questionsList.map((eachQuestion, index) => (
             <div
               id={eachQuestion.id}
-              key={index} className="border-2 border-[#E1E4E8] w-full rounded-2xl p-3 mt-4">
+              key={index} className="border-2 border-gray-medium w-full rounded-2xl p-3 mt-4 hover:bg-[#fafbfc] cursor-pointer">
 
               {eachQuestion.type === "short-answer" && (
                 <>
-                  <div className="flex justify-between items-center">
+                  <div className="flex justify-between items-center hover:bg-[#fafbfc]">
                     <input
                       type="text"
                       placeholder="Short answer question"
-                      className="font-semibold w-full text-base hover:bg-[#fafbfc]"
+                      className={`text-sm font-semibold leading-5 w-full hover:bg-[#fafbfc] ${errors && eachQuestion.value.length === 0 ? 'placeholder-red-500' : 'placeholder-gray-400'}`}
                       value={eachQuestion.value}
                       onChange={(e) => handleUpdateInputValue(eachQuestion.id, e.target.value)}
                     />
@@ -120,7 +118,7 @@ export default function Home() {
                   <input
                     type="text"
                     disabled
-                    className="w-full border-2 rounded-md border-[#E1E4E8] mt-2 h-8"
+                    className="w-full border-2 rounded-md border-gray-medium mt-2 h-8"
                   />
                 </>
               )}
@@ -130,7 +128,9 @@ export default function Home() {
                     <input
                       type="text"
                       placeholder="Long answer question"
-                      className="font-semibold w-full text-base hover:bg-[#fafbfc]"
+                      className={`text-sm font-semibold leading-5 w-full hover:bg-[#fafbfc] ${errors && eachQuestion.value.length === 0 ? 'placeholder-red-500' : 'placeholder-gray-400'}`}
+
+                      // className="font-semibold w-full text-base hover:bg-[#fafbfc]"
                       onChange={(e) => handleUpdateInputValue(eachQuestion.id, e.target.value)}
                       value={eachQuestion.value}
                     />
@@ -146,7 +146,7 @@ export default function Home() {
                   </div>
                   <textarea
                     disabled
-                    className="w-full border-2 rounded-md border-[#E1E4E8] mt-2 h-20"
+                    className="w-full border-2 rounded-md border-gray-medium mt-2 h-20"
                   />
                 </>
               )}
@@ -156,7 +156,9 @@ export default function Home() {
                     <input
                       type="text"
                       placeholder="Single Select Question"
-                      className="font-semibold w-full text-base hover:bg-[#fafbfc]"
+                      className={`text-sm font-semibold leading-5 w-full hover:bg-[#fafbfc] ${errors && eachQuestion.value.length === 0 ? 'placeholder-red-500' : 'placeholder-gray-400'}`}
+
+                      // className="font-semibold w-full text-base hover:bg-[#fafbfc]"
                       onChange={(e) => handleUpdateInputValue(eachQuestion.id, e.target.value)}
                       value={eachQuestion.value}
                     />
@@ -177,18 +179,19 @@ export default function Home() {
                         type="radio"
                         name={`question-${index}`}
                         disabled
-                        className="h-5 w-5 border-2 rounded-md border-[#E1E4E8]"
+                        className="h-5 w-5 border-2 rounded-md border-gray-medium border-rad"
                       />
-                      Option 1
+                      <input type="text" className='border-2 border-gray-medium flex-grow rounded-md' />
                     </label>
                     <label className="flex items-center gap-2 mt-1">
                       <input
                         type="radio"
                         name={`question-${index}`}
                         disabled
-                        className="h-5 w-5 border-2 rounded-md border-[#E1E4E8]"
+                        className="h-5 w-5 border-2 rounded-md border-gray-medium"
                       />
-                      Option 2
+                      <input type="text" className='border-2 border-gray-medium flex-grow rounded-md' />
+
                     </label>
                   </div>
                 </>
@@ -199,7 +202,9 @@ export default function Home() {
                     <input
                       type="text"
                       placeholder="URL Question"
-                      className="font-semibold w-full text-base hover:bg-[#fafbfc]"
+                      className={`text-sm font-semibold leading-5 w-full hover:bg-[#fafbfc] ${errors && eachQuestion.value.length === 0 ? 'placeholder-red-500' : 'placeholder-gray-400'}`}
+
+                      // className="font-semibold w-full text-base hover:bg-[#fafbfc]"
                       onChange={(e) => handleUpdateInputValue(eachQuestion.id, e.target.value)}
                       value={eachQuestion.value}
                     />
@@ -216,7 +221,7 @@ export default function Home() {
                   <input
                     type="text"
                     disabled
-                    className="w-full border-2 rounded-md border-[#E1E4E8] mt-2 h-8 cursor-pointer"
+                    className="w-full border-2 rounded-md border-gray-medium mt-2 h-8 cursor-pointer"
                   />
                 </>
               )}
@@ -226,7 +231,9 @@ export default function Home() {
                     <input
                       type="text"
                       placeholder="Date Question"
-                      className="font-semibold w-full text-base hover:bg-[#fafbfc]"
+                      className={`text-sm font-semibold leading-5 w-full hover:bg-[#fafbfc] ${errors && eachQuestion.value.length === 0 ? 'placeholder-red-500' : 'placeholder-gray-400'}`}
+
+                      // className="font-semibold w-full text-base hover:bg-[#fafbfc]"
                       onChange={(e) => handleUpdateInputValue(eachQuestion.id, e.target.value)}
                       value={eachQuestion.value}
                     />
@@ -243,7 +250,7 @@ export default function Home() {
                   <input
                     type="date"
                     disabled
-                    className="w-full border-2 rounded-md border-[#E1E4E8] mt-2 h-8"
+                    className="w-full border-2 rounded-md border-gray-medium mt-2 h-8"
                   />
                 </>
               )}
@@ -252,71 +259,18 @@ export default function Home() {
 
           <button
             onClick={toggleAddQuestionModal}
-            className="mt-6 text-[#000000] border-2 py-1 px-4 border-[#E1E4E8] rounded-xl font-semibold flex items-center"
+            className="mt-6 text-[#000000] border-2 py-1 px-4 border-gray-medium rounded-xl font-semibold flex items-center"
           >
             <FiPlus />
             <span>Add Question</span>
           </button>
         </main>
 
-        <footer className="flex border-t-2 border-[#E1E4E8] h-16 w-full justify-between gap-4 items-center px-4">
-          <button
 
-            disabled={disabled}
-            className={`border-2 py-1 px-4 border-[#E1E4E8] rounded-xl flex items-center gap-1 ${disabled ? "text-[#899097] cursor-not-allowed" : "text-black"
-              }`}>
-            <LuNotebookPen />
-
-            <span>Save as Draft</span>
-          </button>
-          <button
-            className={`text-[#ffffff] border-2 py-1 px-4  rounded-xl  flex items-center justify-around gap-1 ${disabled ? "border-[#8cc7a7] bg-[#8cc7a7] cursor-not-allowed" : "bg-[#00AA45] border-[#1e874b]"}`}>
-            <MdCheck />
-            <span>Publish form</span>
-          </button>
-        </footer>
+        <Footer disabled={disabled} />
       </div >
-      {modalOpen && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
-          <div className="bg-white w-[300px] p-6 rounded-xl shadow-lg h-[224px] border-2 border-[#E1E4E8]">
-            <h2 className="text-xs font-semibold mb-4">INPUT TYPES</h2>
-            <div
-              className='flex flex-col gap-2 text-sm'>
-              <div
-                onClick={() => handleUpdateQuestionType("short-answer")}
 
-                className='flex items-center gap-2'>
-                <HiMiniBars2 />
-                <span>Short Answer</span>
-              </div>
-              <div
-                onClick={() => handleUpdateQuestionType("long-answer")}
-                className='flex items-center gap-2'>
-                <HiMiniBars3BottomLeft />
-                <span>Long Answer</span>
-              </div>
-              <div
-                onClick={() => handleUpdateQuestionType("single-select")}
-                className='flex items-center gap-2'>
-                <MdOutlineRadioButtonChecked />
-                <span>Single Selects</span>
-              </div>
-              <div
-                onClick={() => handleUpdateQuestionType("url")}
-                className='flex items-center gap-2'>
-                <PiLinkSimple /><span>URL</span>
-              </div>
-              <div
-                onClick={() => handleUpdateQuestionType("date")}
-                className='flex items-center gap-2'>
-                <LuCalendarDays />
-                <span>Date</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      )
-      }
+      {modalOpen && <QuestionTypeDropdown handleUpdateQuestionType={handleUpdateQuestionType} />}
     </>
   )
 }
