@@ -21,7 +21,6 @@ function History() {
     useEffect(() => {
 
         const getHistory = localStorage.getItem("formData");
-        console.log("gethis", getHistory)
         if (getHistory) {
             setFilledForm(JSON.parse(getHistory))
 
@@ -33,9 +32,9 @@ function History() {
         <div className="m-auto flex flex-col justify-between h-screen w-5/12 border-2 border-gray-medium">
 
             <main className="flex flex-col items-start p-4 flex-grow">
-                {filledForm?.map((eachForm) => <>
-                    <h1>{eachForm.formName || "Untitled Form"}</h1>
-                    <div>
+                {filledForm?.map((eachForm) => <div className='mt-3'>
+                    <h1 className='underline'>{eachForm.formName || "Untitled Form"}</h1>
+                    <div className='text-sm'>
                         {eachForm?.answerList?.map(({ value, answer }, idx) => (
                             <div key={idx}>
                                 <strong><p>{value}</p></strong>
@@ -44,7 +43,7 @@ function History() {
                         ))}
                     </div>
 
-                </>)}
+                </div>)}
             </main>
 
 
