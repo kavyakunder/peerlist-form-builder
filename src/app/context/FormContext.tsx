@@ -1,7 +1,7 @@
 "use client"
 import React, { createContext, useState, ReactNode, useContext } from 'react';
 
-type Question = {
+interface Question {
     id: string;
     type: string;
     value: string;
@@ -11,7 +11,7 @@ type FormContextType = {
     formName: string;
     setFormName: (name: string) => void;
     questionsList: Question[];
-    setQuestionsList: (question: Question[]) => void;
+    setQuestionsList: (question: any) => void;
 };
 
 const FormContext = createContext<FormContextType | undefined>(undefined);
