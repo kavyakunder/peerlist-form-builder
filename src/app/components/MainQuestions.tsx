@@ -9,13 +9,18 @@ import { MdOutlineRadioButtonChecked } from "react-icons/md";
 import { PiLinkSimple } from "react-icons/pi";
 import { LuCalendarDays } from "react-icons/lu";
 import { FiPlus } from "react-icons/fi";
+import { Question } from '../types/types';
 
 
-type Question = {
-    id: string;
-    type: keyof typeof questionTypeConfig;
-    value: string;
-};
+
+// type Question = Omit<BaseQuestion, 'type'> & {
+//     type: keyof typeof questionTypeConfig;
+// };
+// type Question = {
+//     id: string;
+//     type: keyof typeof questionTypeConfig;
+//     value: string;
+// };
 
 
 interface MainQuestionsProps {
@@ -56,7 +61,7 @@ const questionTypeConfig = {
     },
     "single-select": {
         icon: <><MdOutlineRadioButtonChecked /><MdKeyboardArrowDown /></>,
-        placeholder: "Long answer question",
+        placeholder: "Single select question",
         inputType: "text",
         renderInput: (index: number) => (
             <div className="mt-2 text-sm">

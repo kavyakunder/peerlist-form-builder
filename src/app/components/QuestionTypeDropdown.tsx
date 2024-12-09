@@ -5,11 +5,20 @@ import { MdOutlineRadioButtonChecked } from "react-icons/md";
 import { PiLinkSimple } from "react-icons/pi";
 import { LuCalendarDays } from "react-icons/lu";
 
-interface QuestionTypeDropdownProps {
-    handleUpdateQuestionType: (type: string) => void;
+
+
+interface QuestionType {
+    id: number;
+    type: "short-answer" | "long-answer" | "single-select" | "url" | "date";
+    label: string;
+    icon: JSX.Element;
 }
 
-const questionTypes = [
+interface QuestionTypeDropdownProps {
+    handleUpdateQuestionType: (type: "short-answer" | "long-answer" | "single-select" | "url" | "date") => void;
+}
+
+const questionTypes: QuestionType[] = [
     { id: 1, type: 'short-answer', label: 'Short Answer', icon: <HiMiniBars2 size={20} /> },
     { id: 2, type: 'long-answer', label: 'Long Answer', icon: <HiMiniBars3BottomLeft size={20} /> },
     { id: 3, type: 'single-select', label: 'Single Select', icon: <MdOutlineRadioButtonChecked size={20} /> },

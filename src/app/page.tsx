@@ -29,7 +29,7 @@ export default function Home() {
     setSelectedQuestionId(id)
   }
 
-  const handleUpdateQuestionType = (type: string) => {
+  const handleUpdateQuestionType = (type: "short-answer" | "long-answer" | "single-select" | "url" | "date") => {
     if (selectedQuestionId) {
       setQuestionsList((prev: any) =>
         prev.map((eachQuestion: any) => eachQuestion.id === selectedQuestionId ?
@@ -38,7 +38,7 @@ export default function Home() {
       )
 
     } else {
-      const newQuestion: Question = { id: uuidv4(), type, value: "" }
+      const newQuestion: Question = { id: uuidv4(), type: type, value: "" }
       setQuestionsList((prev: any) => [...prev, newQuestion]);
 
     }
