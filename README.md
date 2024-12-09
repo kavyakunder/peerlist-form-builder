@@ -2,6 +2,8 @@
 
 A dynamic form builder built with Next.js, TailwindCSS, and TypeScript for creating, previewing, and submitting customizable forms.
 
+https://github.com/user-attachments/assets/58a7822c-729e-4e1e-998d-82c4a2134ba4
+
 ## Features
 1. **Create Custom Forms**: Add various question types, including Short Answer, Long Answer, Single Select, Number, and URL.
 
