@@ -34,5 +34,5 @@ https://github.com/user-attachments/assets/58a7822c-729e-4e1e-998d-82c4a2134ba4
 ## Tech Stack
 - Next.js: A powerful React framework used to build the app.
 - TailwindCSS: A utility-first CSS framework that allowed me to quickly style the app.
-- TypeScript (or JavaScript): Used for type safety and modern JavaScript features.
+- TypeScript: Used for type safety and modern JavaScript features.
 - Local Storage: For saving and retrieving form data within the app (for simplicity and demo purposes).
