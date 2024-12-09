@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { ReactElement } from 'react'
 import { HiMiniBars2 } from "react-icons/hi2";
 import { HiMiniBars3BottomLeft } from "react-icons/hi2";
 import { MdOutlineRadioButtonChecked } from "react-icons/md";
@@ -11,7 +11,7 @@ interface QuestionType {
     id: number;
     type: "short-answer" | "long-answer" | "single-select" | "url" | "date";
     label: string;
-    icon: JSX.Element;
+    icon: ReactElement;
 }
 
 interface QuestionTypeDropdownProps {
