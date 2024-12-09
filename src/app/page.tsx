@@ -83,7 +83,7 @@ export default function Home() {
         />
 
 
-        <Footer disabled={disabled} />
+        <Footer disabled={disabled} setErrors={setErrors} />
       </div >
 
       {modalOpen && <QuestionTypeDropdown handleUpdateQuestionType={handleUpdateQuestionType} />}
