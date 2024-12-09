@@ -28,8 +28,7 @@ export default function RootLayout({
   return (
     <FormProvider>
       <html lang="en">
-
-        <link rel="shortcut icon" href="/favicon.png" />
+        <link rel="shortcut icon" href="/icon.png" />
         <body
           className={`${geistSans.variable} ${geistMono.variable} antialiased`}
         >
