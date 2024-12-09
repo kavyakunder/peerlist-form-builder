@@ -24,14 +24,13 @@ const Footer = ({ disabled, setErrors }: FooterProps) => {
         }
     };
     return (
-        <footer className="flex flex-col border-t-2 border-gray-medium h-16 w-full justify-between gap-4 items-center px-4 md:flex-row sm:flex-col ">
+        <footer className="flex flex-col border-t-2 border-gray-medium h-16 w-full justify-between gap-4 items-center px-4 md:flex-row sm:flex-col font-semibold bg-[#f6f8fa] ">
             <button
                 disabled={disabled}
                 onClick={handlePreviewClick}
                 className={` border-2 py-1 px-4 text-sm border-gray-medium rounded-xl flex items-center gap-1 whitespace-nowrap ${disabled ? "text-[#899097] cursor-not-allowed" : "text-black"
                     }`}>
                 <LuNotebookPen />
-
                 <span>Save as Draft</span>
             </button>
             <button

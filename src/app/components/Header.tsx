@@ -11,7 +11,7 @@ interface HeaderProps {
 
 const Header = ({ formName, disabled, handlePreviewClick, setFormName }: HeaderProps) => {
     return (
-        <header className="flex flex-col border-b-2 border-gray-medium h-14 w-full justify-between items-center px-4 md:flex-row sm:flex-col ">
+        <header className="flex flex-col border-b-2 border-gray-medium h-14 w-full justify-between items-center px-4 md:flex-row sm:flex-col font-semibold ">
             <input
                 type="text" placeholder='Untitled Form'
                 value={formName}
