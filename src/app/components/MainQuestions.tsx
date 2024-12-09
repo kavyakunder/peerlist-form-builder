@@ -1,6 +1,6 @@
 "use client"
 
-import React from 'react'
+import React, { useState } from 'react'
 import { RxDragHandleDots2 } from "react-icons/rx";
 import { HiMiniBars2 } from "react-icons/hi2";
 import { HiMiniBars3BottomLeft } from "react-icons/hi2";
@@ -10,18 +10,7 @@ import { PiLinkSimple } from "react-icons/pi";
 import { LuCalendarDays } from "react-icons/lu";
 import { FiPlus } from "react-icons/fi";
 import { Question } from '../types/types';
-
-
-
-// type Question = Omit<BaseQuestion, 'type'> & {
-//     type: keyof typeof questionTypeConfig;
-// };
-// type Question = {
-//     id: string;
-//     type: keyof typeof questionTypeConfig;
-//     value: string;
-// };
-
+import { useFormContext } from '../context/FormContext';
 
 interface MainQuestionsProps {
     questionsList: Question[];
@@ -30,7 +19,6 @@ interface MainQuestionsProps {
     errors?: boolean;
     toggleAddQuestionModal: () => void;
 }
-
 
 
 const questionTypeConfig = {
@@ -82,7 +70,6 @@ const questionTypeConfig = {
                         className="h-5 w-5 border-2 rounded-md border-gray-medium"
                     />
                     <input type="text" className='border-2 border-gray-medium flex-grow rounded-md' />
-
                 </label>
             </div>
         )
@@ -117,6 +104,28 @@ const MainQuestions = ({ questionsList, handleUpdateInputValue,
     openEditQuestionModal, errors, toggleAddQuestionModal
 }: MainQuestionsProps) => {
 
+    const [draggedItemIndex, setDraggedItemIndex] = useState<number | null>(null);
+    const { setQuestionsList } = useFormContext()
+    const handleDragStart = (index: number) => {
+        setDraggedItemIndex(index);
+    };
+
+    const handleDragOver = (event: React.DragEvent<HTMLDivElement>, index: number) => {
+        event.preventDefault();
+        if (draggedItemIndex === null || draggedItemIndex === index) return;
+
+        const updatedList = [...questionsList];
+        const [draggedItem] = updatedList.splice(draggedItemIndex, 1);
+        updatedList.splice(index, 0, draggedItem);
+
+        setQuestionsList(updatedList);
+        setDraggedItemIndex(index);
+    };
+
+    const handleDragEnd = () => {
+        setDraggedItemIndex(null);
+    };
+
     return (
         <main className="flex flex-col items-center p-4 flex-grow overflow-y-auto">
             {questionsList.map((eachQuestion, index) => {
@@ -125,7 +134,12 @@ const MainQuestions = ({ questionsList, handleUpdateInputValue,
                 return (
                     <div
                         id={eachQuestion.id}
-                        key={index} className="border-2 border-gray-medium w-full rounded-2xl p-3 mt-4 hover:bg-[#fafbfc] cursor-pointer">
+                        key={index}
+                        className={`border-2 border-gray-medium w-full rounded-2xl p-3 mt-4 hover:bg-[#fafbfc] cursor-pointer 
+                        ${draggedItemIndex === index ? 'opacity-50' : ''}`}
+                        onDragOver={(e) => handleDragOver(e, index)}
+                        onDragEnd={handleDragEnd}
+                    >
                         <>
                             <div className="flex justify-between items-center hover:bg-[#fafbfc]">
                                 <input
@@ -141,7 +155,11 @@ const MainQuestions = ({ questionsList, handleUpdateInputValue,
                                     >
                                         {config.icon}
                                     </div>
-                                    <RxDragHandleDots2 />
+                                    <div
+                                        draggable
+                                        onDragStart={() => handleDragStart(index)}>
+                                        <RxDragHandleDots2 />
+                                    </div>
                                 </div>
 
                             </div>
