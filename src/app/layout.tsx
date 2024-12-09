@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 import { FormProvider } from "./context/FormContext";
+import Head from 'next/head';
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -27,7 +28,8 @@ export default function RootLayout({
   return (
     <FormProvider>
       <html lang="en">
-        <link rel="shortcut icon" href="https://media.licdn.com/dms/image/v2/C4D0BAQGjCtiL8FcUcw/company-logo_100_100/company-logo_100_100/0/1646835555234/peerlist_logo?e=1741824000&v=beta&t=GWDJ9UdJR4SLHhzLSWnaRCkScbWJoYT9n8e3ykR2DP8" />
+
+        <link rel="shortcut icon" href="/favicon.png" />
         <body
           className={`${geistSans.variable} ${geistMono.variable} antialiased`}
         >
