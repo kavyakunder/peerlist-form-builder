@@ -1,36 +1,32 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+### Form Builder
 
-## Getting Started
+A dynamic form builder built with Next.js, TailwindCSS, and TypeScript for creating, previewing, and submitting customizable forms.
 
-First, run the development server:
+## Features
+1. **Create Custom Forms**: Add various question types, including Short Answer, Long Answer, Single Select, Number, and URL.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+2. **Change Question Type**: Modify the question type after adding it to the form.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+3. **Form Preview**: Preview the form before submission to ensure everything is in place.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+4. **Form Completion Tracker**: Displays the percentage of fields filled as users complete the form.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+5. **Fill the Form**: After previewing, users can fill out the form, giving them a clear idea of how it will function when submitted.
 
-## Learn More
+6. **Form History**: View previously submitted forms in a table.
 
-To learn more about Next.js, take a look at the following resources:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Assumptions
+1. The dropdown for selecting option type is implemented as a popup to enhance user experience and interaction.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+2. Users cannot proceed to preview unless all the questions are filled. 
 
-## Deploy on Vercel
+3. For the purpose of this project, I saved the form data locally in the browser (using local storage) instead of integrating a backend.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
+## Tech Stack
+- Next.js: A powerful React framework used to build the app.
+- TailwindCSS: A utility-first CSS framework that allowed me to quickly style the app.
+- TypeScript (or JavaScript): Used for type safety and modern JavaScript features.
+- Local Storage: For saving and retrieving form data within the app (for simplicity and demo purposes).
