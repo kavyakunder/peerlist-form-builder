@@ -1,11 +1,6 @@
 "use client"
 import React, { createContext, useState, ReactNode, useContext } from 'react';
-
-interface Question {
-    id: string;
-    type: string;
-    value: string;
-};
+import { Question } from '../types/types';
 
 type FormContextType = {
     formName: string;

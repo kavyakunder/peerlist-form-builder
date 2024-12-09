@@ -8,12 +8,7 @@ import { useRouter } from 'next/navigation';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import MainQuestions from './components/MainQuestions';
-
-type Question = {
-  id: string;
-  type: string;
-  value: string;
-};
+import { Question } from './types/types';
 
 export default function Home() {
 
